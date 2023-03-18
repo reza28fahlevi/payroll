@@ -15,7 +15,7 @@
     </table>
 
     <!-- Modal -->
-    <?= $this->include('employee_modal') ?>
+    <?= $this->include('Employee/employee_modal') ?>
     <?= $this->include('footer') ?>
 <script>
     var dataTables = $('#employeeTable').DataTable( {

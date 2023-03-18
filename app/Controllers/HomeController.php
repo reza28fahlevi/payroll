@@ -13,6 +13,11 @@ class HomeController extends BaseController
         $data = [
             "data" => $employeeData
         ];
-        return view('employees',$data);
+        return view('Employee/employees',$data);
+    }
+
+    public function shift()
+    {
+        return view('Shift/shift');
     }
 }
