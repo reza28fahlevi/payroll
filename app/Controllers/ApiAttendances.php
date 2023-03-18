@@ -17,8 +17,8 @@ class ApiAttendances extends ResourceController
 
     // all data
     public function index(){
-        $data['attendances'] = $this->model->orderBy('attendance_id', 'DESC')->findAll();
-
+        $data['attendances'] = $this->model->join('employees','employees.employee_id = attendances.employee_id')->orderBy('attendance_id', 'DESC')->findAll();
+        // dd($data);
         return $this->respond($data);
     }
     // show data
@@ -38,8 +38,9 @@ class ApiAttendances extends ResourceController
             'employee_id' => $this->request->getVar('employee_id',FILTER_SANITIZE_STRING),
             'time_in'  => $this->request->getVar('time_in',FILTER_SANITIZE_STRING),
             'time_out'  => $this->request->getVar('time_out',FILTER_SANITIZE_STRING),
-            'date'  => $this->request->getVar('date',FILTER_SANITIZE_STRING),
+            'date'  => date("Y-m-d",strtotime($this->request->getVar('date',FILTER_SANITIZE_STRING))),        
         ];
+
         if(!$this->model->insert($data)){
             return $this->fail($this->model->errors());
         }
@@ -62,7 +63,7 @@ class ApiAttendances extends ResourceController
             'employee_id' => $this->request->getVar('employee_id',FILTER_SANITIZE_STRING),
             'time_in'  => $this->request->getVar('time_in',FILTER_SANITIZE_STRING),
             'time_out'  => $this->request->getVar('time_out',FILTER_SANITIZE_STRING),
-            'date'  => $this->request->getVar('date',FILTER_SANITIZE_STRING),
+            'date'  => date("Y-m-d",strtotime($this->request->getVar('date',FILTER_SANITIZE_STRING))),
         ];
         $this->model->update($attendance_id, $data);
 

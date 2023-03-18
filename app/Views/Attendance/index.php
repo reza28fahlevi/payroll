@@ -7,6 +7,9 @@
                 <th>Name</th>
                 <th>Departement</th>
                 <th>Position</th>
+                <th>Date Presence</th>
+                <th>Time In</th>
+                <th>Time Out</th>
                 <th data-orderable="false">Function</th>
             </tr>
         </thead>
@@ -15,14 +18,14 @@
     </table>
 
     <!-- Modal -->
-    <?= $this->include('Employee/employee_modal') ?>
+    <?= $this->include('Attendance/attendance_modal') ?>
     <?= $this->include('footer') ?>
 <script>
     var dataTables = $('#employeeTable').DataTable( {
             ajax: {
-                url: '<?php echo base_url('api/employees') ?>',
+                url: '<?php echo base_url('api/attendance') ?>',
                 type: 'GET',
-                dataSrc: 'employees'
+                dataSrc: 'attendances'
             },
             "columns": [
                 { 
@@ -39,9 +42,21 @@
                 },
                 { 
                     "target" : [3],
-                    "data" : 'employee_id',
+                    "data" : 'date'
+                },
+                { 
+                    "target" : [4],
+                    "data" : 'time_in'
+                },
+                { 
+                    "target" : [5],
+                    "data" : 'time_out'
+                },
+                { 
+                    "target" : [6],
+                    "data" : 'attendance_id',
                     render: function (data) {
-                        return "<button type='button' class='btn btn-sm btn-secondary mx-1' onClick='edit(this)' data-id='"+ data +"'>Edit</button><button type='button' class='btn btn-sm btn-danger mx-1' onClick='deleteEmployee(this)' data-id='"+ data +"'>Delete</button>";
+                        return "<button type='button' class='btn btn-sm btn-secondary mx-1' onClick='edit(this)' data-id='"+ data +"'>Edit</button><button type='button' class='btn btn-sm btn-danger mx-1' onClick='deleteAttendance(this)' data-id='"+ data +"'>Delete</button>";
                     }
                 },
             ]
@@ -50,33 +65,31 @@
         
         $("#add").click(function(){
             $('#form1')[0].reset();
-            $('#modalEmployee').modal('show');
+            $('#modalAttendance').modal('show');
         })
         
     })
 
     $('#form1').on('submit', function() {
-        var employee_name = $('#employee_name').val();
-        var employee_departement = $('#employee_departement').val();
-        var employee_position = $('#employee_position').val();
-        var shift_id = $('#shift_id').val();
-        var salary = $('#salary').val();
         var employee_id = $('#employee_id').val();
-        if(employee_id!=""){
-            var url = "<?php echo base_url('api/employees/update/');?>" + employee_id
+        var date = $('#date').val();
+        var time_in = $('#time_in').val();
+        var time_out = $('#time_out').val();
+        var attendance_id = $('#attendance_id').val();
+        if(attendance_id!=""){
+            var url = "<?php echo base_url('api/attendance/update/');?>" + attendance_id
         }else{
-            var url = "<?php echo base_url('api/employees');?>"
+            var url = "<?php echo base_url('api/attendance');?>"
         }
         
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {
-                    employee_name: employee_name,
-                    employee_departement: employee_departement,
-                    employee_position: employee_position,
-                    shift_id: shift_id,
-                    salary: salary,
+                    employee_id: employee_id,
+                    date: date,
+                    time_in: time_in,
+                    time_out: time_out,
                 },
                 success: function(responses) {
                     if(responses.status==200)
@@ -87,7 +100,7 @@
                             icon: 'success',
                             confirmButtonText: 'Ok'
                         })
-                        $("#modalEmployee").modal('hide');
+                        $("#modalAttendance").modal('hide');
                         dataTables.ajax.reload();
                     }
                     else
@@ -101,28 +114,27 @@
     });
     
     function edit(val){
-        var employee_id = $(val).attr("data-id");
+        var attendance_id = $(val).attr("data-id");
         
         $('#form1')[0].reset();        
         $.ajax({
             type: "GET",
-            url: '<?php echo base_url('api/employees/')?>' + employee_id,
+            url: '<?php echo base_url('api/attendance/')?>' + attendance_id,
             data: {"data":"employee"},
             success: function(data){
                 console.log(data);
+                $('#attendance_id').val(data.attendance_id);
                 $('#employee_id').val(data.employee_id);
-                $('#employee_name').val(data.employee_name);
-                $('#employee_departement').val(data.employee_departement);
-                $('#employee_position').val(data.employee_position);
-                $('#shift_id').val(data.shift_id);
-                $('#salary').val(data.salary);
+                $('#date').val(data.date);
+                $('#time_in').val(data.time_in);
+                $('#time_out').val(data.time_out);
             }
         });
-        $('#modalEmployee').modal('show');
+        $('#modalAttendance').modal('show');
     }
 
-    function deleteEmployee(val){
-        var employee_id = $(val).attr("data-id");
+    function deleteAttendance(val){
+        var attendance_id = $(val).attr("data-id");
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -134,7 +146,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "<?php echo base_url('api/employees/')?>" + employee_id,
+                        url: "<?php echo base_url('api/attendance/')?>" + attendance_id,
                         type: 'DELETE',
                         success: function(result) {
                             if(result.messages.success){

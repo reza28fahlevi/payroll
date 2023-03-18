@@ -51,7 +51,7 @@
                     "target" : [5],
                     "data" : 'shift_id',
                     render: function (data) {
-                        return "<button type='button' class='btn btn-sm btn-secondary mx-1' onClick='edit(this)' data-id='"+ data +"'>Edit</button><button type='button' class='btn btn-sm btn-danger mx-1' onClick='deleteEmployee(this)' data-id='"+ data +"'>Delete</button>";
+                        return "<button type='button' class='btn btn-sm btn-secondary mx-1' onClick='edit(this)' data-id='"+ data +"'>Edit</button><button type='button' class='btn btn-sm btn-danger mx-1' onClick='deleteShift(this)' data-id='"+ data +"'>Delete</button>";
                     }
                 },
             ]
@@ -156,7 +156,7 @@
         $('#modalShift').modal('show');
     }
 
-    function deleteEmployee(val){
+    function deleteShift(val){
         var shift_id = $(val).attr("data-id");
         Swal.fire({
             title: 'Are you sure?',

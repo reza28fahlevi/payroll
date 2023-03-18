@@ -39,6 +39,7 @@ class ApiEmployees extends ResourceController
             'employee_departement'  => $this->request->getVar('employee_departement',FILTER_SANITIZE_STRING),
             'employee_position'  => $this->request->getVar('employee_position',FILTER_SANITIZE_STRING),
             'shift_id'  => $this->request->getVar('shift_id',FILTER_SANITIZE_STRING),
+            'salary'  => $this->request->getVar('salary',FILTER_SANITIZE_STRING),
         ];
         if(!$this->model->insert($data)){
             return $this->fail($this->model->errors());
@@ -63,6 +64,7 @@ class ApiEmployees extends ResourceController
             'employee_departement'  => $this->request->getVar('employee_departement',FILTER_SANITIZE_STRING),
             'employee_position'  => $this->request->getVar('employee_position',FILTER_SANITIZE_STRING),
             'shift_id'  => $this->request->getVar('shift_id',FILTER_SANITIZE_STRING),
+            'salary'  => $this->request->getVar('salary',FILTER_SANITIZE_STRING),
         ];
         $this->model->update($employee_id, $data);
 

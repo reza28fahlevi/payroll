@@ -32,7 +32,10 @@ $routes->set404Override();
 $routes->get('/', 'HomeController::index');
 $routes->get('/shift', 'HomeController::shift');
 $routes->get('/attendance', 'HomeController::attendance');
-$routes->get('/payroll', 'HomeController::payroll');
+$routes->get('/report/attendance', 'HomeController::report_attendance');
+$routes->get('/payroll', 'PayrollController::index');
+$routes->get('/payrolls', 'PayrollController::payrolls');
+$routes->post('/payroll/report', 'PayrollController::report');
 
 $routes->group('api', static function ($routes) {
     $routes->resource('employees', ['controller' => 'ApiEmployees']);
@@ -41,11 +44,8 @@ $routes->group('api', static function ($routes) {
     $routes->resource('shift', ['controller' => 'ApiShift']);
     $routes->post('shift/update/(:num)', 'ApiShift::update/$1');
 
-    $routes->resource('attendance', ['controller' => 'ApiAttendance']);
-    $routes->post('attendance/update/(:num)', 'ApiAttendance::update/$1');
-    
-    $routes->resource('payroll', ['controller' => 'ApiPayroll']);
-    $routes->post('payroll/update/(:num)', 'ApiPayroll::update/$1');
+    $routes->resource('attendance', ['controller' => 'ApiAttendances']);
+    $routes->post('attendance/update/(:num)', 'ApiAttendances::update/$1');
 });
 
 /*

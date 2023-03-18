@@ -14,7 +14,7 @@ class EmployeesModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ["employee_name","employee_departement","employee_position","shift_id","created_at","updated_at","deleted_at"];
+    protected $allowedFields    = ["employee_name","employee_departement","employee_position","shift_id","salary","created_at","updated_at","deleted_at"];
 
     // Dates
     protected $useTimestamps = true;
