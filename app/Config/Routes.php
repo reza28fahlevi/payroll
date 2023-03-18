@@ -31,6 +31,8 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'HomeController::index');
 $routes->get('/shift', 'HomeController::shift');
+$routes->get('/attendance', 'HomeController::attendance');
+$routes->get('/payroll', 'HomeController::payroll');
 
 $routes->group('api', static function ($routes) {
     $routes->resource('employees', ['controller' => 'ApiEmployees']);
@@ -38,6 +40,9 @@ $routes->group('api', static function ($routes) {
     
     $routes->resource('shift', ['controller' => 'ApiShift']);
     $routes->post('shift/update/(:num)', 'ApiShift::update/$1');
+
+    $routes->resource('attendance', ['controller' => 'ApiAttendance']);
+    $routes->post('attendance/update/(:num)', 'ApiAttendance::update/$1');
     
     $routes->resource('payroll', ['controller' => 'ApiPayroll']);
     $routes->post('payroll/update/(:num)', 'ApiPayroll::update/$1');

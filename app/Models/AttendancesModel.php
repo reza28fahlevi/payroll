@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AttendanceModel extends Model
+class AttendancesModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'attendances';

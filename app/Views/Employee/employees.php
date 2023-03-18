@@ -59,6 +59,7 @@
         var employee_name = $('#employee_name').val();
         var employee_departement = $('#employee_departement').val();
         var employee_position = $('#employee_position').val();
+        var shift_id = $('#shift_id').val();
         var employee_id = $('#employee_id').val();
         if(employee_id!=""){
             var url = "<?php echo base_url('api/employees/update/');?>" + employee_id
@@ -72,7 +73,8 @@
                 data: {
                     employee_name: employee_name,
                     employee_departement: employee_departement,
-                    employee_position: employee_position
+                    employee_position: employee_position,
+                    shift_id: shift_id,
                 },
                 success: function(responses) {
                     if(responses.status==200)
@@ -110,6 +112,7 @@
                 $('#employee_name').val(data.employee_name);
                 $('#employee_departement').val(data.employee_departement);
                 $('#employee_position').val(data.employee_position);
+                $('#shift_id').val(data.shift_id);
             }
         });
         $('#modalEmployee').modal('show');

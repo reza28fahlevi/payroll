@@ -22,6 +22,18 @@
                     <label for="employee_position">Employee Position</label>
                     <input type="text" class="form-control" id="employee_position" name="employee_position" placeholder="Position">
                 </div>
+                <div class="form-group">
+                    <label for="shift_id">Employee Shift</label>
+                    <select class="form-control" id="shift_id" name="shift_id">\
+                        <option></option>
+                        <?php foreach($shifts as $shift){
+                            ?>
+                            <option value="<?= $shift->shift_id ?>"><?= $shift->shift_name ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

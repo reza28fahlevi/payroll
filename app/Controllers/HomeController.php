@@ -10,9 +10,12 @@ class HomeController extends BaseController
     public function index()
     {
         $model = new EmployeesModel();
+        $modelShift = new ShiftModel();
         $employeeData = $model->orderBy('employee_id', 'DESC')->findAll();
+        $shiftData = $modelShift->orderBy('shift_name', 'ASC')->findAll();
         $data = [
-            "data" => $employeeData
+            "data" => $employeeData,
+            "shifts" => $shiftData
         ];
         return view('Employee/employees',$data);
     }
@@ -34,5 +37,9 @@ class HomeController extends BaseController
             "data" => $shiftData
         ];
         return view('Shift/shift',$data);
+    }
+
+    public function attendance(){
+        
     }
 }

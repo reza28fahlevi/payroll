@@ -6,7 +6,7 @@ use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\EmployeesModel;
 
-class ApiEmployees extends ResourceController
+class ApiPayroll extends ResourceController
 {
     use ResponseTrait;
 
@@ -15,13 +15,13 @@ class ApiEmployees extends ResourceController
         $this->model = new EmployeesModel();
     }
 
-    // all employees
+    // all data
     public function index(){
         $data['employees'] = $this->model->orderBy('employee_id', 'DESC')->findAll();
 
         return $this->respond($data);
     }
-    // show employee
+    // show data
     public function show($employee_id = null){
         $data = $this->model->where('employee_id',$employee_id)->first();
 
@@ -38,7 +38,6 @@ class ApiEmployees extends ResourceController
             'employee_name' => $this->request->getVar('employee_name',FILTER_SANITIZE_STRING),
             'employee_departement'  => $this->request->getVar('employee_departement',FILTER_SANITIZE_STRING),
             'employee_position'  => $this->request->getVar('employee_position',FILTER_SANITIZE_STRING),
-            'shift_id'  => $this->request->getVar('shift_id',FILTER_SANITIZE_STRING),
         ];
         if(!$this->model->insert($data)){
             return $this->fail($this->model->errors());
@@ -62,7 +61,6 @@ class ApiEmployees extends ResourceController
             'employee_name' => $this->request->getVar('employee_name',FILTER_SANITIZE_STRING),
             'employee_departement'  => $this->request->getVar('employee_departement',FILTER_SANITIZE_STRING),
             'employee_position'  => $this->request->getVar('employee_position',FILTER_SANITIZE_STRING),
-            'shift_id'  => $this->request->getVar('shift_id',FILTER_SANITIZE_STRING),
         ];
         $this->model->update($employee_id, $data);
 
