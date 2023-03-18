@@ -1,4 +1,4 @@
-<?php include 'header.php' ?>
+<?= $this->include('header') ?>
     <h2 id="headers">Employees</h2>
     <button type="button" id="add" class="btn btn-sm btn-success float-right">Add +</button>
     <table id="employeeTable" class="table table-hover display" style="width:100%">
@@ -15,8 +15,8 @@
     </table>
 
     <!-- Modal -->
-    <?php include 'employee_modal.php' ?>
-    <?php include 'footer.php' ?>
+    <?= $this->include('employee_modal') ?>
+    <?= $this->include('footer') ?>
 <script>
     var dataTables = $('#employeeTable').DataTable( {
             ajax: {
