@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EmployeesModel extends Model
+class ShiftModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'shift';
+    protected $table            = 'shifts';
     protected $primaryKey       = 'shift_id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
@@ -31,7 +31,7 @@ class EmployeesModel extends Model
         'time_in' => 'required',
         'time_out' => 'required',
     ];
-    
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

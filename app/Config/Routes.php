@@ -32,8 +32,16 @@ $routes->set404Override();
 $routes->get('/', 'HomeController::index');
 $routes->get('/shift', 'HomeController::shift');
 
-$routes->resource('api/employees', ['controller' => 'ApiEmployees']);
-$routes->post('api/employees/update/(:num)', 'ApiEmployees::update/$1');
+$routes->group('api', static function ($routes) {
+    $routes->resource('employees', ['controller' => 'ApiEmployees']);
+    $routes->post('employees/update/(:num)', 'ApiEmployees::update/$1');
+    
+    $routes->resource('shift', ['controller' => 'ApiShift']);
+    $routes->post('shift/update/(:num)', 'ApiShift::update/$1');
+    
+    $routes->resource('payroll', ['controller' => 'ApiPayroll']);
+    $routes->post('payroll/update/(:num)', 'ApiPayroll::update/$1');
+});
 
 /*
  * --------------------------------------------------------------------

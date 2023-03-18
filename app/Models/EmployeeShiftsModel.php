@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EmployeesModel extends Model
+class EmployeeShiftsModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'employee_shift';
